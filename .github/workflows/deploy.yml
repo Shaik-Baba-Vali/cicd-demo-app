@@ -14,8 +14,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Deploy
-        run: mvn clean deploy -s settings.xml  # 👈 Points to root folder
+      - name: Publish and Deploy to CloudHub 2.0
+        run: mvn clean deploy -DmuleDeploy -s settings.xml
         env:
           ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
           ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
