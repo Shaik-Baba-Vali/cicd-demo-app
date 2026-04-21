@@ -1,121 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <!-- Use your Business Group ID -->
-    <groupId>3265c39d-1b19-4158-828c-58479d052eea</groupId>
-    <artifactId>cicd-demo-app</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-application</packaging>
+	<!-- Use your Business Group ID -->
+	<groupId>3265c39d-1b19-4158-828c-58479d052eea</groupId>
+	<artifactId>cicd-demo-app</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>mule-application</packaging>
 
-    <name>cicd-demo-app</name>
+	<name>cicd-demo-app</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <app.runtime>4.10.1</app.runtime>
-        <mule.maven.plugin.version>4.6.1</mule.maven.plugin.version>
-        <skipMunitTests>true</skipMunitTests>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<app.runtime>4.10.1</app.runtime>
+		<mule.maven.plugin.version>4.6.1</mule.maven.plugin.version>
+		<skipMunitTests>true</skipMunitTests>
+	</properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.mule.tools.maven</groupId>
-                <artifactId>mule-maven-plugin</artifactId>
-                <version>${mule.maven.plugin.version}</version>
-                <extensions>true</extensions>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>${mule.maven.plugin.version}</version>
+				<extensions>true</extensions>
 
-                <configuration>
-                    <muleVersion>${app.runtime}</muleVersion>
-                    <skipMunitTests>${skipMunitTests}</skipMunitTests>
+				<configuration>
+					<muleVersion>${app.runtime}</muleVersion>
+					<skipMunitTests>${skipMunitTests}</skipMunitTests>
 
-                    <cloudhub2Deployment>
-                        <!-- Region -->
-                        <uri>https://anypoint.mulesoft.com</uri>
+					<cloudhub2Deployment>
+						<!-- Region -->
+						<uri>https://anypoint.mulesoft.com</uri>
 
-                        <!-- Required -->
-                        <provider>MC</provider>
+						<!-- Required -->
+						<provider>MC</provider>
 
-                        <!-- App -->
-                        <applicationName>${project.artifactId}</applicationName>
+						<!-- App -->
+						<applicationName>${project.artifactId}</applicationName>
 
-                        <!-- ⚠️ MUST match exactly your Anypoint environment -->
-                        <environment>dev</environment>
+						<!-- ⚠️ MUST match exactly your Anypoint environment -->
+						<environment>dev</environment>
 
-                        <!-- US East (Ohio) -->
-                        <target>Cloudhub-US-East-2</target>
+						<!-- US East (Ohio) -->
+						<target>Cloudhub-US-East-2</target>
 
-                        <!-- Resources -->
-                        <replicas>1</replicas>
-                        <vCores>0.1</vCores>
+						<!-- Resources -->
+						<replicas>1</replicas>
+						<vCores>0.1</vCores>
 
-                        <!-- Org -->
-                        <businessGroupId>3265c39d-1b19-4158-828c-58479d052eea</businessGroupId>
+						<!-- Org -->
+						<businessGroupId>3265c39d-1b19-4158-828c-58479d052eea</businessGroupId>
 
-                        <!-- ✅ FIXED AUTH -->
-                        <connectedAppClientId>${env.ANYPOINT_CLIENT_ID}</connectedAppClientId>
-                        <connectedAppClientSecret>${env.ANYPOINT_CLIENT_SECRET}</connectedAppClientSecret>
-                        <connectedAppGrantType>client_credentials</connectedAppGrantType>
-                    </cloudhub2Deployment>
+						<!-- ✅ FIXED AUTH -->
+						<connectedAppClientId>${env.ANYPOINT_CLIENT_ID}</connectedAppClientId>
+						<connectedAppClientSecret>${env.ANYPOINT_CLIENT_SECRET}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+					</cloudhub2Deployment>
 
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+					<classifier>mule-application</classifier>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.mule.connectors</groupId>
-            <artifactId>mule-http-connector</artifactId>
-            <version>1.11.0</version>
-            <classifier>mule-plugin</classifier>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-http-connector</artifactId>
+			<version>1.11.0</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
 
-        <dependency>
-            <groupId>org.mule.connectors</groupId>
-            <artifactId>mule-sockets-connector</artifactId>
-            <version>1.2.7</version>
-            <classifier>mule-plugin</classifier>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-sockets-connector</artifactId>
+			<version>1.2.7</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+	</dependencies>
 
-    <!-- ✅ FIXED: Use US region repo -->
-    <repositories>
-        <repository>
-            <id>anypoint-exchange-v3</id>
-            <name>Anypoint Exchange</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
-        </repository>
+	<!-- ✅ FIXED: Use US region repo -->
+	<repositories>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+		</repository>
 
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases</name>
-            <url>https://repository.mulesoft.org/releases/</url>
-        </repository>
-    </repositories>
+		<repository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases</name>
+			<url>https://repository.mulesoft.org/releases/</url>
+		</repository>
+	</repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases</name>
-            <url>https://repository.mulesoft.org/releases/</url>
-        </pluginRepository>
-    </pluginRepositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases</name>
+			<url>https://repository.mulesoft.org/releases/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
-    <!-- ✅ FIXED: Use US Exchange URL -->
-    <distributionManagement>
-        <repository>
-            <id>anypoint-exchange-v3</id>
-            <name>Anypoint Exchange</name>
-            <url>
-                https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven
-            </url>
-        </repository>
-    </distributionManagement>
+	<!-- ✅ FIXED: Use US Exchange URL -->
+	<distributionManagement>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange</name>
+			<url>
+				https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven
+			</url>
+		</repository>
+	</distributionManagement>
 
 </project>
