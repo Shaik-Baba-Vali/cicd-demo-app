@@ -8,7 +8,7 @@
         <server>
             <id>anypoint-exchange-v3</id>
             <username>~~~Client~~~</username>
-            <password>${env.ANYPOINT_CLIENT_ID}~?~${env.ANYPOINT_CLIENT_SECRET}</password>
+            <password>$1e21b0d0fa5246f6a791b851969fbe36~?~fe5B6e28b5034fE6A4Bf4bFf66973B54</password>
         </server>
     </servers>
     
