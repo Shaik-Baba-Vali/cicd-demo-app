@@ -32,7 +32,7 @@
                         <provider>MC</provider>
                         <applicationName>${project.artifactId}</applicationName>
                         <environment>Sandbox</environment>
-                        <target>Cloudhub-US-East-2</target>
+                        <target>Cloudhub-US-East-1</target>
                         <replicas>1</replicas>
                         <vCores>0.1</vCores>
                         <businessGroupId>3265c39d-1b19-4158-828c-58479d052eea</businessGroupId>
