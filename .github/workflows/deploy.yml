@@ -8,14 +8,25 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Publish and Deploy to CloudHub 2.0
-        run: mvn clean deploy -DmuleDeploy -s settings.xml
+
+      # ✅ STEP 1 — Publish to Exchange
+      - name: Publish to Exchange
+        run: mvn clean deploy -s settings.xml
+        env:
+          ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+          ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+
+      # ✅ STEP 2 — Deploy to CloudHub 2.0
+      - name: Deploy to CloudHub 2.0
+        run: mvn mule:deploy -DmuleDeploy -s settings.xml
         env:
           ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
           ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
